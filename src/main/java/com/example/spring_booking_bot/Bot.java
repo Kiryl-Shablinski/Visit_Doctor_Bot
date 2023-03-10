@@ -1,6 +1,11 @@
 package com.example.spring_booking_bot;
 
 
+import com.example.spring_booking_bot.commands.LoginCommand;
+import com.example.spring_booking_bot.commands.WorkerCommand;
+import com.example.spring_booking_bot.config.BotConfig;
+import com.example.spring_booking_bot.repos.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -11,10 +16,13 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 @Component
+//@Slf4j
 public class Bot extends TelegramLongPollingBot {
   /*  final
     UserRepo userRepo;
@@ -24,22 +32,33 @@ public class Bot extends TelegramLongPollingBot {
 
    */
 
+    final    BotConfig botConfig;
+
+
+    public Bot(BotConfig botConfig) {
+        this.botConfig = botConfig;
+
+    }
+
     @Override
     public String getBotUsername() {
-        return "spring_visitdoctor_bot";
+        return botConfig.getBotName();
     }
 
     @Override
     public String getBotToken() {
-        return "6122079098:AAHtx4nt11TfmWjydtM8iTK6p3RR_SA_8-U";
+        return botConfig.getToken();
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         SendMessage sendMessage = new SendMessage();
         KeyboardRow k = new KeyboardRow();
-        //if (userRepo.findUserModelByTgId(update.getMessage().getFrom().getId().toString()) == null){
+       /* if (userRepo.findUserModelByTgId(update.getMessage().getFrom().getId().toString()) == null) {
             k.add(new KeyboardButton("Log In"));
+        }
+
+        */
 
             k.add(new KeyboardButton("записаться к врачу"));
 
@@ -50,7 +69,7 @@ public class Bot extends TelegramLongPollingBot {
             replyKeyboardMarkup.setKeyboard(Collections.singletonList(k));
             sendMessage.setReplyMarkup(replyKeyboardMarkup);
 
-        /*    List<WorkerCommand> list = new ArrayList<>();
+            List<WorkerCommand> list = new ArrayList<>();
                 list.add(new LoginCommand());
             for (WorkerCommand w : list){
                 if(w.start(update)!= null){
@@ -59,11 +78,10 @@ public class Bot extends TelegramLongPollingBot {
                 }
             }
 
-         */
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+               // log.error("Error occurred" + e.getMessage());
             }
     }
 
