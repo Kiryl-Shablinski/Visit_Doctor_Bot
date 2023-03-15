@@ -1,8 +1,9 @@
 package com.example.spring_booking_bot.models;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.persistence.*;
+
 
 @Entity
 @Table(name = "telegram_user")

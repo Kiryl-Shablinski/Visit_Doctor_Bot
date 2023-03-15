@@ -1,5 +1,7 @@
 package com.example.spring_booking_bot.commands;
 
+import com.example.spring_booking_bot.helpers.UserHelper;
+import com.example.spring_booking_bot.models.UserModel;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -13,7 +15,9 @@ import java.util.Collections;
 public class LoginCommand implements WorkerCommand{
     @Override
     public SendMessage start(Update update) {
-       if (!update.getMessage().getText().equals("Log In")) {
+       if (!update.getMessage().getText().equals("Log In")
+       && !update.getMessage().getText().equals("Оставить свое имя")
+       && !update.getMessage().getText().equals("Остаться анонимом")) {
            return null;
        }
        SendMessage sendMessage = new SendMessage();
@@ -22,13 +26,28 @@ public class LoginCommand implements WorkerCommand{
         if (update.getMessage().getText().equals("Log In")) {
             KeyboardRow keyboardRow = new KeyboardRow();
             keyboardRow.add(new KeyboardButton("Оставить свое имя"));
-            keyboardRow.add(new KeyboardButton("Остаться анонимным"));
+            keyboardRow.add(new KeyboardButton("Остаться анонимом"));
             sendMessage.setText("Выберите действие");
 
             ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
             replyKeyboardMarkup.setKeyboard(Collections.singletonList(keyboardRow));
             sendMessage.setReplyMarkup(replyKeyboardMarkup);
         }
+        UserModel userModel = new UserModel();
+        userModel.setUserName(update.getMessage().getFrom().getUserName());
+        userModel.setTgId(update.getMessage().getFrom().getId().toString());
+
+        if (update.getMessage().getText().equals("Остаться анонимом")){
+            sendMessage.setText("Пользователь сохранен");
+            UserHelper.saveUser(userModel);
+
+        }
+        if (update.getMessage().getText().equals("Оставить свое имя")){
+            sendMessage.setText("Пользователь сохранен");
+        userModel.setName(update.getMessage().getFrom().getFirstName());
+        UserHelper.saveUser(userModel);
+        }
+
         return sendMessage;
     }
 

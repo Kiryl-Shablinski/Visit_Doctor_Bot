@@ -5,8 +5,9 @@ import com.example.spring_booking_bot.commands.LoginCommand;
 import com.example.spring_booking_bot.commands.WorkerCommand;
 import com.example.spring_booking_bot.config.BotConfig;
 import com.example.spring_booking_bot.repos.UserRepo;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -22,22 +23,12 @@ import java.util.List;
 
 
 @Component
-//@Slf4j
 public class Bot extends TelegramLongPollingBot {
-  /*  final
-    UserRepo userRepo;
-    public Bot(UserRepo userRepo){
-        this.userRepo = userRepo;
-    }
-
-   */
 
     final    BotConfig botConfig;
 
-
-    public Bot(BotConfig botConfig) {
+    public Bot( BotConfig botConfig){
         this.botConfig = botConfig;
-
     }
 
     @Override
@@ -54,15 +45,13 @@ public class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         SendMessage sendMessage = new SendMessage();
         KeyboardRow k = new KeyboardRow();
-       /* if (userRepo.findUserModelByTgId(update.getMessage().getFrom().getId().toString()) == null) {
-            k.add(new KeyboardButton("Log In"));
-        }
+      //  if (userRepo.findUserModelByTgId(update.getMessage().getFrom().getId().toString()) == null) {
+      //    k.add(new KeyboardButton("Log In"));
+      //  }
+        k.add(new KeyboardButton("Log In"));
+        k.add(new KeyboardButton("Записаться к врачу"));
 
-        */
-
-            k.add(new KeyboardButton("записаться к врачу"));
-
-            sendMessage.setChatId(update.getMessage().getChatId().toString());
+        sendMessage.setChatId(update.getMessage().getChatId().toString());
         sendMessage.setText("выберите действие");
 
             ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
