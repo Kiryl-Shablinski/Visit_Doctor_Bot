@@ -1,7 +1,7 @@
 package com.example.spring_booking_bot.helpers;
 
 public enum DoctorEnum {
-    TERPEVT,
+    TERAPEVT,
     OKULIST,
     HIRURG,
     TRAVMOTOLOG,

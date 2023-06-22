@@ -20,7 +20,6 @@ public class UserHelper {
     }
 
     public static UserModel findUser(String tgId){
-
         return helper.userRepo.findUserModelByTgId(tgId);
     }
 }
