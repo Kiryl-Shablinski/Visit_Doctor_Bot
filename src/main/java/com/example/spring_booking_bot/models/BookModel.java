@@ -4,26 +4,20 @@ import com.example.spring_booking_bot.helpers.DoctorEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
-
 @Entity
-@Table(name = "telegram_user")
+@Table(name = "book_list")
 @Data
-public class UserModel {
+public class BookModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-
-    @Column(name="username")
-    String userName;
-
-    @Column(name = "telegram_id")
-    String tgId;
-
-    @Column(name = "name")
-    String name;
-
-    @Column(name = "wanted_doc")
+    @Column(name = "doctor")
     @Enumerated
-    DoctorEnum doctorEnum;
+    DoctorEnum doctor;
+
+    @Column(name = "time")
+    String time;
+
+    @Column(name = "tg_id")
+    String tgId;
 }

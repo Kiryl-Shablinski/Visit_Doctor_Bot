@@ -18,4 +18,9 @@ public class UserHelper {
     public static void saveUser(UserModel user){
         helper.userRepo.save(user);
     }
+
+    public static UserModel findUser(String tgId){
+
+        return helper.userRepo.findUserModelByTgId(tgId);
+    }
 }

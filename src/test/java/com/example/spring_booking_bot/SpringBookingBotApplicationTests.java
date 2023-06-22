@@ -9,5 +9,4 @@ class SpringBookingBotApplicationTests {
     @Test
     void contextLoads() {
     }
-
-}
+   }

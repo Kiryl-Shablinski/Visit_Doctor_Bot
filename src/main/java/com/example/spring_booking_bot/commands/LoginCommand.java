@@ -20,9 +20,9 @@ public class LoginCommand implements WorkerCommand{
        && !update.getMessage().getText().equals("Остаться анонимом")) {
            return null;
        }
-       SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Выберите действие");
+      SendMessage sendMessage = new SendMessage();
        sendMessage.setChatId(update.getMessage().getChatId().toString());
+
         if (update.getMessage().getText().equals("Log In")) {
             KeyboardRow keyboardRow = new KeyboardRow();
             keyboardRow.add(new KeyboardButton("Оставить свое имя"));
@@ -47,6 +47,7 @@ public class LoginCommand implements WorkerCommand{
         userModel.setName(update.getMessage().getFrom().getFirstName());
         UserHelper.saveUser(userModel);
         }
+
 
         return sendMessage;
     }
