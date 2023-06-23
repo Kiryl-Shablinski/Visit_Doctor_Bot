@@ -48,7 +48,6 @@ public class LoginCommand implements WorkerCommand{
         UserHelper.saveUser(userModel);
         }
 
-
         return sendMessage;
     }
 

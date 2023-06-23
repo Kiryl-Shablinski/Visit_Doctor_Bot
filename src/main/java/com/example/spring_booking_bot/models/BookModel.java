@@ -13,7 +13,7 @@ public class BookModel {
     long id;
     @Column(name = "doctor")
     @Enumerated
-    DoctorEnum doctor;
+    DoctorEnum doctorEnum;
 
     @Column(name = "time")
     String time;

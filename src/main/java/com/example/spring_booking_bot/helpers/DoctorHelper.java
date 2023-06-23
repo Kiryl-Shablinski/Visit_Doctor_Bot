@@ -20,14 +20,14 @@ private static DoctorHelper doctorHelper = null;
         this.bookRepo = bookRepo;
         doctorHelper = this;
     }
-    public void save(BookModel bookModel){
+    public static void save(BookModel bookModel){
         doctorHelper.bookRepo.save(bookModel);
     }
 
     public static List<String> getFreeTimes(DoctorEnum doctorEnum){
         TimeControl timeControl = new TimeControl();
         List<BookModel> bookModelList =
-                doctorHelper.bookRepo.findBookModelsByDoctor(doctorEnum);
+                doctorHelper.bookRepo.findBookModelsByDoctorEnum(doctorEnum);
         List<String> freeTimes = timeControl.getTimes();
         List<String> timeBookModelList = bookModelList.stream()
                 .map(BookModel::getTime)
@@ -36,15 +36,7 @@ private static DoctorHelper doctorHelper = null;
      freeTimes = freeTimes.stream()
              .filter(x -> !timeBookModelList.contains(x))
              .toList();
-      /*  List<String> list = new ArrayList<>();
-        for (BookModel b : bookModelList){
-            for (String str : freeTimes){
-                if (b.getTime().equals(str)){
-                    list.add(b.getTime());
-                }
-            }
-        }
-       */
+
         return freeTimes;
 
     }

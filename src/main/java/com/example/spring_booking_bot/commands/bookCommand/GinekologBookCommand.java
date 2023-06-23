@@ -16,14 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class TerapevtBookCommand  implements WorkerCommand {
-    @Override
+public class GinekologBookCommand implements WorkerCommand {
     public SendMessage start(Update update) {
-        if (!update.getMessage().getText().equals("Терапевт")){
+        if (!update.getMessage().getText().equals("Гинеколог")){
             return null;
         }
         UserModel userModel = UserHelper.findUser(update.getMessage().getFrom().getId().toString());
-        userModel.setDoctorEnum(DoctorEnum.TERAPEVT);
+        userModel.setDoctorEnum(DoctorEnum.GINEKOLOG);
         UserHelper.saveUser(userModel);
         return sendDefaultMessage(update);
     }
@@ -33,25 +32,26 @@ public class TerapevtBookCommand  implements WorkerCommand {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(update.getMessage().getChatId().toString());
         sendMessage.setText("Выберите свободное время");
-        List<String> listTime = DoctorHelper.getFreeTimes(DoctorEnum.TERAPEVT);
-
-        KeyboardRow k1 = new KeyboardRow();
-        k1.add(new KeyboardButton(listTime.get(0)));
-        k1.add(new KeyboardButton(listTime.get(1)));
+        List<String> listTime = DoctorHelper.getFreeTimes(DoctorEnum.GINEKOLOG);
+        //определяем количество строк с кнопками
+        int keyBoardRowCount = (int) Math.ceil(listTime.size() / 2.0);
         List<KeyboardRow> listRow = new ArrayList<>();
-        listRow.add(k1);
-        KeyboardRow k2 = new KeyboardRow();
-        if (listTime.size() > 2){
-            for (int i = 2; i < listTime.size(); i++) {
-                k2.add(new KeyboardButton(listTime.get(i)));
+        for (int l = 0; l < listTime.size();) {
+            for (int i = 0; i < keyBoardRowCount; i++) {
+                KeyboardRow row = new KeyboardRow();
+                for (int j = 0; j < 2; j++) {
+                    if (listTime.isEmpty()) break;
+                    row.add(new KeyboardButton(listTime.get(l)));
+                    listTime.remove(l);
+                }
+                listRow.add(row);
             }
         }
-        listRow.add(k2);
 
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-            replyKeyboardMarkup.setKeyboard(listRow);
+        replyKeyboardMarkup.setKeyboard(listRow);
 
-            sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
         return sendMessage;
     }
 }

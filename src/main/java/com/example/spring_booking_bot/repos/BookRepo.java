@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface BookRepo  extends JpaRepository<BookModel, Long> {
-        List<BookModel> findBookModelsByDoctor(DoctorEnum doctorEnum);
+        List<BookModel> findBookModelsByDoctorEnum(DoctorEnum doctorEnum);
 }
