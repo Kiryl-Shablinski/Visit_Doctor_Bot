@@ -7,6 +7,7 @@ import com.example.spring_booking_bot.commands.LoginCommand;
 import com.example.spring_booking_bot.commands.WorkerCommand;
 import com.example.spring_booking_bot.commands.bookCommand.*;
 import com.example.spring_booking_bot.config.BotConfig;
+import com.example.spring_booking_bot.commands.ViewInfo;
 import com.example.spring_booking_bot.repos.UserRepo;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -69,6 +70,7 @@ public class Bot extends TelegramLongPollingBot {
         list.add(new GinekologBookCommand());
         list.add(new AllergologBookCommand());
         list.add(new ChooseTime());
+        list.add(new ViewInfo());
         for (WorkerCommand w : list) {
             if (w.start(update) != null) {
                 sendMessage = w.start(update);

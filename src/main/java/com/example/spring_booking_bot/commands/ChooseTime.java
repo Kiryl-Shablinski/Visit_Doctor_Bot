@@ -21,6 +21,7 @@ public class ChooseTime implements  WorkerCommand{
         for (String time : list){
             if (update.getMessage().getText().equals(time)){
                 ifThisCommand = true;
+                break;
             }
         }
         if (!ifThisCommand) {

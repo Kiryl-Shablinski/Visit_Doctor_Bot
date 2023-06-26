@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface BookRepo  extends JpaRepository<BookModel, Long> {
         List<BookModel> findBookModelsByDoctorEnum(DoctorEnum doctorEnum);
+        List<BookModel> findBookModelsByTgId(String tgId);
 }
