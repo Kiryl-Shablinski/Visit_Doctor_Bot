@@ -2,6 +2,7 @@ package com.example.spring_booking_bot.helpers;
 
 import com.example.spring_booking_bot.models.BookModel;
 import com.example.spring_booking_bot.repos.BookRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -39,6 +40,11 @@ private static DoctorHelper doctorHelper = null;
 
         return freeTimes;
 
+    }
+
+
+    public static void deleteTimes(String tgId){
+        doctorHelper.bookRepo.deleteBookModelByTgId(tgId);
     }
 
 }

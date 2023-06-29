@@ -18,6 +18,7 @@ import java.util.List;
 
 @Component
 public class HirurgBookCommand implements WorkerCommand {
+
     public SendMessage start(Update update) {
         if (!update.getMessage().getText().equals("Хирург")){
             return null;

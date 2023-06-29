@@ -19,6 +19,7 @@ import java.util.List;
 
 @Component
 public class GinekologBookCommand implements WorkerCommand {
+
     public SendMessage start(Update update) {
         if (!update.getMessage().getText().equals("Гинеколог")){
             return null;
@@ -26,7 +27,6 @@ public class GinekologBookCommand implements WorkerCommand {
             UserModel userModel = UserHelper.findUser(update.getMessage().getFrom().getId().toString());
             userModel.setDoctorEnum(DoctorEnum.GINEKOLOG);
             UserHelper.saveUser(userModel);
-
         return sendDefaultMessage(update);
     }
 

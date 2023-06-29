@@ -14,7 +14,8 @@ import java.util.List;
 public class BookCommand implements WorkerCommand{
     @Override
     public SendMessage start(Update update) {
-        if (!update.getMessage().getText().equals("Записаться к врачу")) {
+        if (!update.getMessage().getText().equals("Записаться к врачу")
+                && !update.getMessage().getText().startsWith("/command1")) {
             return null;
         }
         SendMessage sendMessage = new SendMessage();

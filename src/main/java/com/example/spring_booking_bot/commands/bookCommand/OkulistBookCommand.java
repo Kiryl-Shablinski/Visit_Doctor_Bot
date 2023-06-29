@@ -18,6 +18,7 @@ import java.util.List;
 
 @Component
 public class OkulistBookCommand implements WorkerCommand {
+
     public SendMessage start(Update update) {
         if (!update.getMessage().getText().equals("Окулист")){
             return null;

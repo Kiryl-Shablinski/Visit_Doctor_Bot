@@ -25,6 +25,7 @@ public class TravmotologBookCommand implements WorkerCommand {
         UserModel userModel = UserHelper.findUser(update.getMessage().getFrom().getId().toString());
         userModel.setDoctorEnum(DoctorEnum.TRAVMOTOLOG);
         UserHelper.saveUser(userModel);
+
         return sendDefaultMessage(update);
     }
 

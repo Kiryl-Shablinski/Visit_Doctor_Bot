@@ -23,10 +23,12 @@ public class TerapevtBookCommand  implements WorkerCommand {
         if (!update.getMessage().getText().equals("Терапевт")){
             return null;
         }
-        UserModel userModel = UserHelper.findUser(update.getMessage().getFrom().getId().toString());
-        userModel.setDoctorEnum(DoctorEnum.TERAPEVT);
-        UserHelper.saveUser(userModel);
-        return sendDefaultMessage(update);
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(update.getMessage().getChatId().toString());
+            UserModel userModel = UserHelper.findUser(update.getMessage().getFrom().getId().toString());
+            userModel.setDoctorEnum(DoctorEnum.TERAPEVT);
+            UserHelper.saveUser(userModel);
+            return sendDefaultMessage(update);
     }
 
     @Override

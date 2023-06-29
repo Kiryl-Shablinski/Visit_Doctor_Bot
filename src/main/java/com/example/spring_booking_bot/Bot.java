@@ -1,14 +1,12 @@
 package com.example.spring_booking_bot;
 
 
-import com.example.spring_booking_bot.commands.BookCommand;
-import com.example.spring_booking_bot.commands.ChooseTime;
-import com.example.spring_booking_bot.commands.LoginCommand;
-import com.example.spring_booking_bot.commands.WorkerCommand;
+import com.example.spring_booking_bot.commands.*;
 import com.example.spring_booking_bot.commands.bookCommand.*;
 import com.example.spring_booking_bot.config.BotConfig;
-import com.example.spring_booking_bot.commands.ViewInfo;
+import com.example.spring_booking_bot.view.ViewDoctor;
 import com.example.spring_booking_bot.repos.UserRepo;
+import com.example.spring_booking_bot.view.viewBook.*;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -70,10 +68,17 @@ public class Bot extends TelegramLongPollingBot {
         list.add(new GinekologBookCommand());
         list.add(new AllergologBookCommand());
         list.add(new ChooseTime());
-        list.add(new ViewInfo());
+        list.add(new ViewDoctor());
+        list.add(new AllergologView());
+        list.add(new GinekologView());
+        list.add(new HirurgView());
+        list.add(new OkulistView());
+        list.add(new TerapevtView());
+        list.add(new TravmotologView());
+        list.add(new DeleteCommand());
         for (WorkerCommand w : list) {
-            if (w.start(update) != null) {
-                sendMessage = w.start(update);
+            sendMessage = w.start(update);
+            if (sendMessage != null) {
                 break;
             }
         }
