@@ -1,6 +1,7 @@
 package com.example.spring_booking_bot.view.viewBook;
 
 import com.example.spring_booking_bot.commands.WorkerCommand;
+import com.example.spring_booking_bot.helpers.DeleteHelper;
 import com.example.spring_booking_bot.helpers.DoctorEnum;
 import com.example.spring_booking_bot.helpers.ViewHelper;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ public class TravmotologView implements WorkerCommand {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(update.getMessage().getChatId().toString());
         sendMessage.setText("Время вашей записи");
+        DeleteHelper.getDeleteHelper().setDoctorEnum(DoctorEnum.TRAVMOTOLOG);
         List<String> listTime = ViewHelper.getDoctorTime(DoctorEnum.TRAVMOTOLOG);
         return ViewHelper.getTimeSendMessage(listTime,sendMessage);
     }

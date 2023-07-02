@@ -41,10 +41,4 @@ private static DoctorHelper doctorHelper = null;
         return freeTimes;
 
     }
-
-
-    public static void deleteTimes(String tgId){
-        doctorHelper.bookRepo.deleteBookModelByTgId(tgId);
-    }
-
 }

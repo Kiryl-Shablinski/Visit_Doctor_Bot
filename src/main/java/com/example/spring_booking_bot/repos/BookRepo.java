@@ -14,5 +14,6 @@ public interface BookRepo  extends JpaRepository<BookModel, Long> {
         List<BookModel> findBookModelsByDoctorEnum(DoctorEnum doctorEnum);
         List<BookModel> findBookModelsByTgId(String tgId);
 
-        void deleteBookModelByTgId(String tgId);
+      //  void deleteBookModelByTgId(String tgId);
+        void deleteBookModelByTgIdAndDoctorEnumAndTime(String tgId, DoctorEnum doctor, String time);
 }
