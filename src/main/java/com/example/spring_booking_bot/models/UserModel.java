@@ -7,7 +7,7 @@ import lombok.Data;
 
 
 @Entity
-@Table(name = "telegram_user")
+@Table(name = "telegram_user", uniqueConstraints = @UniqueConstraint(columnNames = {"telegram_id"}))
 @Data
 public class UserModel {
     @Id
